@@ -35,7 +35,7 @@ public class RNDocumentPreviewModule extends ReactContextBaseJavaModule {
             Intent intent = new Intent(getCurrentActivity(), BigImgBrowse.class);
             intent.putExtra("imgUrlArr", imgs);
             intent.putExtra("currentIndex", 0);
-            intent.putExtra("isShowSave", false);
+            intent.putExtra("isShowSave", true);
             getCurrentActivity().startActivity(intent);
             ((Activity) getCurrentActivity()).overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             return;
