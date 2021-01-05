@@ -47,7 +47,7 @@ public class FileDisplayActivity extends Activity implements ReaderCallback,
     private DownloadManager mDownloadManager;
     private long mRequestId;
     private DownloadObserver mDownloadObserver;
-    private String mFileUrl = "", mFileName, fileName;//文件url 由文件url截取的文件名 上个页面传过来用于显示的文件名
+    private String mFileUrl = "", mFileName, fileName, fileType;//文件url 由文件url截取的文件名 上个页面传过来用于显示的文件名
     AVLoadingIndicatorView mAVLoadingIndicatorView;
     RelativeLayout loading_View;
 
@@ -132,6 +132,7 @@ public class FileDisplayActivity extends Activity implements ReaderCallback,
         Intent intent = getIntent();
         mFileUrl = intent.getStringExtra("fileUrl");
         fileName = intent.getStringExtra("fileName");
+        fileType = intent.getStringExtra("type");
         tv_title.setText("文件预览");
     }
 
@@ -142,10 +143,12 @@ public class FileDisplayActivity extends Activity implements ReaderCallback,
      * @param fileUrl  文件url
      * @param fileName 文件名
      */
-    public static void actionStart(Context context, String fileUrl, String fileName) {
+    public static void actionStart(Context context, String fileUrl, String fileName, String type) {
         Intent intent = new Intent(context, FileDisplayActivity.class);
         intent.putExtra("fileUrl", fileUrl);
         intent.putExtra("fileName", fileName);
+        intent.putExtra("type", type);
+
         context.startActivity(intent);
     }
 
@@ -289,6 +292,9 @@ public class FileDisplayActivity extends Activity implements ReaderCallback,
         String fileName = null;
         try {
             fileName = url.substring(url.lastIndexOf("/") + 1);
+            if (fileName.indexOf(".") == -1) {
+                fileName += "." + fileType;
+            }
         } finally {
             if (TextUtils.isEmpty(fileName)) {
                 fileName = String.valueOf(System.currentTimeMillis());

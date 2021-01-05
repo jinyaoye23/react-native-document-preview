@@ -29,8 +29,8 @@ public class RNDocumentPreviewModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void preview(String url) {
-        if (url.endsWith("jpg") || url.endsWith("png")|| url.endsWith("jpeg")) {
+    public void preview(String url, String type) {
+        if (url.endsWith("jpg") || url.endsWith("png") || url.endsWith("jpeg")) {
             String imgs[] = {url};
             Intent intent = new Intent(getCurrentActivity(), BigImgBrowse.class);
             intent.putExtra("imgUrlArr", imgs);
@@ -47,7 +47,7 @@ public class RNDocumentPreviewModule extends ReactContextBaseJavaModule {
         if (ContextCompat.checkSelfPermission(getCurrentActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getCurrentActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         } else {
-            FileDisplayActivity.actionStart(getCurrentActivity(), fileUrl, fileName);
+            FileDisplayActivity.actionStart(getCurrentActivity(), fileUrl, fileName,type);
         }
 
 
