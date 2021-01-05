@@ -30,12 +30,12 @@
 }
 RCT_EXPORT_MODULE();
 
-RCT_EXPORT_METHOD(preview:(NSString *)filePath) {
+RCT_EXPORT_METHOD(preview:(NSString *)filePath type:(NSString *)type) {
     
     UIViewController *ctrl = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     UIViewController *webviewController = [[UIViewController alloc]init];
-    UIWebView *webview = [[UIWebView alloc]initWithFrame:ctrl.view.bounds];
-    webview.scalesPageToFit = YES;
+    WKWebView *webview = [[WKWebView alloc]initWithFrame:ctrl.view.bounds];
+//    webview.scalesPageToFit = YES;
     
     NSURL *url = [NSURL URLWithString:filePath];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
